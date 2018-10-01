@@ -59,15 +59,15 @@ def inputGuess():
 	guess = 0
 	try:
 		print("\nPlease enter the number of your guess")
-		guess = input("(1-10 or 11 for jack, 12 for queen, 13 for king, or 14 for ace): ")
+		guess = input("(1-10 or 11 for jack, 12 for queen, 13 for king): ")
 		checkExit(guess)
 		guess = int(guess)
 	except ValueError:
 		print("Please enter a valid integer. ")
 		guess = inputGuess()
 		return
-	if guess <= 0 or guess > 14:
-		print("Please enter a valid integer 1-14")
+	if guess <= 0 or guess > 13:
+		print("Please enter a valid integer 1-13")
 		guess = inputGuess()
 	return guess
 
@@ -76,7 +76,7 @@ def checkExit(exit):
 		raise SystemExit
 
 def printMatchedCard(playerName, cardNum):
-	faceCards = {11: "jack", 12: "queen", 13: "king", 14: "ace"}
+	faceCards = {11: "jack", 12: "queen", 13: "king"}
 	if cardNum in faceCards:
 		print("{} matched a pair of {}s when drawing a card. \n".format(playerName, faceCards[cardNum]))
 	else:

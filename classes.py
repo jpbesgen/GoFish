@@ -78,12 +78,12 @@ class Card:
 	of this game (Go-Fish), suits serve no purpose other than to distinguish cards 
 	in the deck. 
 	"""
-	faceCards = {11: "jack", 12: "queen", 13: "king", 14: "ace"}
+	faceCards = {11: "jack", 12: "queen", 13: "king"}
 
 	def __init__(self, number, suit):
 		"""Create a playing card with given NUMBER and SUIT.
 
-		number -- 1 through 14, where 11=Jack, 12=Queen, 13=King, 14=Ace.
+		number -- 1 through 13, where 11=Jack, 12=Queen, 13=King.
 		suit -- A string; either clubs, spades, hearts, or diamonds.
 		"""
 		self.number = number
@@ -120,7 +120,7 @@ class Deck:
 		""" Initialize deck with 52 cards, 1 from each number/facecard and suit combination."""
 		deck = []
 		for suit in ["clubs", "spades", "hearts", "diamonds"]:
-			for num in range(1,15):
+			for num in range(1,14):
 				deck.append(Card(num, suit))
 		return deck
 	
