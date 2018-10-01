@@ -2,15 +2,26 @@ from tests import *
 from classes import *
 from utils import *
 
+"""
+This file contains the Game class, which provides the game state.
+"""
 
 class Game():
+	""" Class to create an instance of a game of Go-Fish. """
 
 	def __init__(self):
+		"""Create a game state with NUMPLAYERS, GAMEDECK, and list of PLAYERS.
+
+		numPlayers -- number of players in the game.
+		gameDeck -- Deck of cards to be used for the current game state.
+		players -- list of players in the game.
+		"""
 		self.numPlayers = 0
 		self.gameDeck = Deck()
 		self.players = []
 
 	def guessPlayerAndCard(self, currentPlayer):
+		""" Ask current player for opposing player number to guess card from. """
 		ask = inputPlayerNumber(self.numPlayers, self.players)
 		print("")
 
@@ -22,6 +33,7 @@ class Game():
 		self.askForPair(currentPlayer, otherPlayer)
 
 	def askForPair(self, currentPlayer, otherPlayer):
+		""" Ask current player for card to guess from opposing player's hand. """
 		printHand(currentPlayer)
 		printPairs(currentPlayer)
 		guess = inputGuess()
@@ -47,20 +59,21 @@ class Game():
 			holdOutput(2)
 
 	def matchGuess(self, currentPlayer, otherPlayer, guess):
+		""" Check if current player's guess matches any cards in the opposing player's hand. """
 		card = Card(guess, "")
 		card = otherPlayer.removeFromHand(card)
 		currentPlayer.matchGuess(card, self.gameDeck)
 		otherPlayer.drawCard(self.gameDeck)
 
 	def checkCardsInHand(self, player):
+		""" Ensure that the player has 5 cards in their hand. """
 		if player.numCardsInHand() < 5 and not self.gameDeck.isEmpty():
 			player.drawCard(self.gameDeck)
 			self.checkCardsInHand(player)
 		return
 
-
-
 	def startGame(self):
+		""" Set-up the game, creating the players and adding 5 cards to each of their hands. """
 		self.numPlayers = inputNumPlayers()
 
 		for i in range(self.numPlayers):
@@ -71,11 +84,8 @@ class Game():
 			for player in self.players:
 				player.drawCard(self.gameDeck)
 
-
-
-
 	def play(self):
-
+		""" Loop while game is not over. """
 		self.startGame()
 		currentPlayer = 0
 

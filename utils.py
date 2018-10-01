@@ -1,5 +1,9 @@
 from os import system, name 
 from time import sleep 
+
+"""
+This file contains helper functions for the program, mainly print and input functions.
+"""
   
 def clear(): 
   

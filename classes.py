@@ -1,4 +1,3 @@
-import sys
 from random import shuffle
 from utils import printMatchedCard
 
@@ -7,7 +6,6 @@ from utils import printMatchedCard
 This file contains the main classes for the "Go-Fish" card game. 
 
 """ 
-
 
 class Player: 
 	""" Player in the game."""
@@ -39,26 +37,36 @@ class Player:
 		self.drawCard(deck)
 
 	def matchGuess(self, card, deck):
+		"""Helper function for removeFromHand(), called when 
+		If the number of cards in the hand decreases to zero, 
+		"""
 		matchingCard = self.removeFromHand(card)
 		self.pairs.append((card, matchingCard))
 		if len(self.hand) == 0:
 			self.drawCard(deck)
 
 	def addToHand(self, card, deck):
+		""" If matching card is in hand, remove both, add to pairs list, and 
+		draw a new card. Otherwise, add card to current hand.
+		"""
 		if card in self.hand:
 			toRemove = self.hand[self.hand.index(card)]
 			self.pairs.append((card, toRemove))
 			self.hand.remove(toRemove)
 			self.drawCard(deck)
 			self.drawCard(deck)
-			if self.number in Card.faceCards:
-				printMatchedCard(self.name, Card.faceCards[self.number])
-			else:
-				printMatchedCard(self.name, card.number)
+			# Commenting out to reduce confusing during game play for new players.
+			# This code just prints when a player draws a card that matches one in 
+			# their hand.
+			# if self.number in Card.faceCards:
+			# 	printMatchedCard(self.name, Card.faceCards[self.number])
+			# else:
+			# 	printMatchedCard(self.name, card.number)
 		else:
 			self.hand.append(card)
 
 	def drawCard(self, deck):
+		""" Draw card from deck and add to hand. """
 		if not deck.isEmpty():
 			card = deck.pop()
 			self.addToHand(card, deck)
@@ -66,6 +74,7 @@ class Player:
 			print("The deck is empty. The last card has been drawn. ")
 
 	def removeFromHand(self, card):
+		""" Remove card from hand. """
 		if card not in self.hand:
 			raise RuntimeError("Card does not exist in hand; cannot remove.")
 		else:
@@ -125,6 +134,7 @@ class Deck:
 		return deck
 	
 	def shuffleDeck(self):
+		""" Shuffle deck using Python's random.shuffle. """
 		shuffle(self.deck)
 
 	def pop(self):
